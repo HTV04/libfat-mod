@@ -16,7 +16,7 @@ default: release
 
 all: release dist
 
-release: nds-release gba-release cube-release wii-release
+release: nds-release gba-release cube-release wii-release gp2x-release
 
 ogc-release: include/libfatversion.h cube-release wii-release
 
@@ -34,7 +34,10 @@ wii-release: include/libfatversion.h
 	$(MAKE) -C libogc2 PLATFORM=wii BUILD=wii_release
 	-$(MAKE) -C libogc-rice PLATFORM=wii BUILD=wii_release
 
-debug: nds-debug gba-debug cube-debug wii-debug
+gp2x-release: include/libfatversion.h
+	$(MAKE) -C gp2x PLATFORM=gp2x BUILD=gp2x_release
+
+debug: nds-debug gba-debug cube-debug wii-debug gp2x-debug
 
 ogc-debug: cube-debug wii-debug
 
@@ -52,7 +55,10 @@ wii-debug: include/libfatversion.h
 	$(MAKE) -C libogc2 PLATFORM=wii BUILD=wii_debug
 	-$(MAKE) -C libogc-rice PLATFORM=wii BUILD=wii_debug
 
-clean: nds-clean gba-clean ogc-clean
+gp2x-debug: include/libfatversion.h
+	$(MAKE) -C gp2x BUILD=debug
+
+clean: nds-clean gba-clean ogc-clean gp2x-clean
 
 nds-clean:
 	$(MAKE) -C nds clean
@@ -64,7 +70,10 @@ ogc-clean:
 	$(MAKE) -C libogc2 clean
 	-$(MAKE) -C libogc-rice clean
 
-dist-bin: nds-dist-bin gba-dist-bin ogc-dist-bin
+gp2x-clean:
+	$(MAKE) -C gp2x clean
+
+dist-bin: nds-dist-bin gba-dist-bin ogc-dist-bin gp2x-dist-bin
 
 nds-dist-bin: include/libfatversion.h nds-release distribute/$(VERSTRING)
 	$(MAKE) -C nds dist-bin
@@ -76,6 +85,9 @@ ogc-dist-bin: include/libfatversion.h ogc-release distribute/$(VERSTRING)
 	$(MAKE) -C libogc2 dist-bin
 	-$(MAKE) -C libogc-rice dist-bin
 
+gp2x-dist-bin: include/libfatversion.h gp2x-release distribute/$(VERSTRING)
+	$(MAKE) -C gp2x dist-bin
+
 dist-src: distribute/$(VERSTRING)
 	@tar --exclude=.svn --exclude=*CVS* -cvjf distribute/$(VERSTRING)/libfat-src-$(VERSTRING).tar.bz2 \
 	source include Makefile \
@@ -83,6 +95,7 @@ dist-src: distribute/$(VERSTRING)
 	gba/Makefile \
 	libogc2/Makefile \
 	libogc-rice/Makefile
+	gp2x/Makefile
 
 dist: dist-bin dist-src
 
@@ -101,7 +114,7 @@ include/libfatversion.h : Makefile
 	@echo >> $@
 	@echo "#endif // __LIBFATVERSION_H__" >> $@
 
-install: nds-install gba-install ogc-install
+install: nds-install gba-install ogc-install gp2x-install
 
 nds-install: nds-release
 	$(MAKE) -C nds install
@@ -112,3 +125,6 @@ gba-install: gba-release
 ogc-install: cube-release wii-release
 	$(MAKE) -C libogc2 install
 	-$(MAKE) -C libogc-rice install
+
+gp2x-install: gp2x-release
+	$(MAKE) -C gp2x install
