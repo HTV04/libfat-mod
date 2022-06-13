@@ -27,12 +27,14 @@ gba-release: include/libfatversion.h
 	$(MAKE) -C gba BUILD=release
 
 cube-release: include/libfatversion.h
-	$(MAKE) -C libogc2 PLATFORM=cube BUILD=cube_release
-	-$(MAKE) -C libogc-rice PLATFORM=cube BUILD=cube_release
+#	$(MAKE) -C libogc2 PLATFORM=cube BUILD=cube_release
+#	-$(MAKE) -C libogc-rice PLATFORM=cube BUILD=cube_release
+	$(MAKE) -C libogc-mod PLATFORM=cube BUILD=cube_release
 
 wii-release: include/libfatversion.h
-	$(MAKE) -C libogc2 PLATFORM=wii BUILD=wii_release
-	-$(MAKE) -C libogc-rice PLATFORM=wii BUILD=wii_release
+#	$(MAKE) -C libogc2 PLATFORM=wii BUILD=wii_release
+#	-$(MAKE) -C libogc-rice PLATFORM=wii BUILD=wii_release
+	$(MAKE) -C libogc-mod PLATFORM=wii BUILD=wii_release
 
 gp2x-release: include/libfatversion.h
 	$(MAKE) -C gp2x PLATFORM=gp2x BUILD=gp2x_release
@@ -48,12 +50,14 @@ gba-debug: include/libfatversion.h
 	$(MAKE) -C gba BUILD=debug
 
 cube-debug: include/libfatversion.h
-	$(MAKE) -C libogc2 PLATFORM=cube BUILD=cube_debug
-	-$(MAKE) -C libogc-rice PLATFORM=cube BUILD=cube_debug
+#	$(MAKE) -C libogc2 PLATFORM=cube BUILD=cube_debug
+#	-$(MAKE) -C libogc-rice PLATFORM=cube BUILD=cube_debug
+	$(MAKE) -C libogc-mod PLATFORM=cube BUILD=cube_debug
 
 wii-debug: include/libfatversion.h
-	$(MAKE) -C libogc2 PLATFORM=wii BUILD=wii_debug
-	-$(MAKE) -C libogc-rice PLATFORM=wii BUILD=wii_debug
+#	$(MAKE) -C libogc2 PLATFORM=wii BUILD=wii_debug
+#	-$(MAKE) -C libogc-rice PLATFORM=wii BUILD=wii_debug
+	$(MAKE) -C libogc-mod PLATFORM=wii BUILD=wii_debug
 
 gp2x-debug: include/libfatversion.h
 	$(MAKE) -C gp2x BUILD=debug
@@ -67,8 +71,9 @@ gba-clean:
 	$(MAKE) -C gba clean
 
 ogc-clean:
-	$(MAKE) -C libogc2 clean
-	-$(MAKE) -C libogc-rice clean
+#	$(MAKE) -C libogc2 clean
+#	-$(MAKE) -C libogc-rice clean
+	$(MAKE) -C libogc-mod clean
 
 gp2x-clean:
 	$(MAKE) -C gp2x clean
@@ -82,8 +87,9 @@ gba-dist-bin: include/libfatversion.h gba-release distribute/$(VERSTRING)
 	$(MAKE) -C gba dist-bin
 
 ogc-dist-bin: include/libfatversion.h ogc-release distribute/$(VERSTRING)
-	$(MAKE) -C libogc2 dist-bin
-	-$(MAKE) -C libogc-rice dist-bin
+#	$(MAKE) -C libogc2 dist-bin
+#	-$(MAKE) -C libogc-rice dist-bin
+	$(MAKE) -C libogc-mod dist-bin
 
 gp2x-dist-bin: include/libfatversion.h gp2x-release distribute/$(VERSTRING)
 	$(MAKE) -C gp2x dist-bin
@@ -94,7 +100,8 @@ dist-src: distribute/$(VERSTRING)
 	nds/Makefile \
 	gba/Makefile \
 	libogc2/Makefile \
-	libogc-rice/Makefile
+	libogc-rice/Makefile \
+	libogc-mod/Makefile \
 	gp2x/Makefile
 
 dist: dist-bin dist-src
@@ -123,8 +130,9 @@ gba-install: gba-release
 	$(MAKE) -C gba install
 
 ogc-install: cube-release wii-release
-	$(MAKE) -C libogc2 install
-	-$(MAKE) -C libogc-rice install
+#	$(MAKE) -C libogc2 install
+#	-$(MAKE) -C libogc-rice install
+	$(MAKE) -C libogc-mod install
 
 gp2x-install: gp2x-release
 	$(MAKE) -C gp2x install

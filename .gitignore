@@ -7,6 +7,9 @@ libogc2/wii_release
 libogc-rice/cube_release
 libogc-rice/lib
 libogc-rice/wii_release
+libogc-mod/cube_release
+libogc-mod/lib
+libogc-mod/wii_release
 nds/lib
 nds/release
 gp2x/lib
@@ -15,5 +18,6 @@ distribute
 gba/include
 libogc2/include
 libogc-rice/include
+libogc-mod/include
 nds/include
 gp2x/include
